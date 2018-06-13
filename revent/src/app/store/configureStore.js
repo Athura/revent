@@ -4,9 +4,12 @@ import {
 } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from '../reducers/rootReducer';
+import thunk from 'redux-thunk';
+import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
+import { reduxFirestore, getFirestore } from 'redux-firestore';
 
 export const configureStore = (preloadedState) => {
-    const middlewares = [];
+    const middlewares = [thunk];
 
     const middlewareEnhancer = applyMiddleware(...middlewares);
 
