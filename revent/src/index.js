@@ -18,7 +18,8 @@ const store = configureStore();
 
 const rootEl = document.getElementById('root');
 
-//hot module loading, website doesn't need to be refreshed
+// hot module loading, website doesn't need to be refreshed
+// Adding the store.firebaseAuthIsReady fixes the SettingsDashboard's mapState
 let render = () => {
     ReactDOM.render( 
         <Provider store={store}>
@@ -44,6 +45,9 @@ if (module.hot) {
     })
 }
 
-render();
+ 
+store.firebaseAuthIsReady.then(() => {
+    render();
+})
 
 registerServiceWorker();
