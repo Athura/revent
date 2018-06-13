@@ -48,7 +48,7 @@ export const registerUser = (user) =>
             const firebase = getFirebase();
             try {
                 dispatch(closeModal());
-                await firebase.lgoin({
+                await firebase.login({
                     provider: selectedProvider,
                     type: 'popup'
                 })
