@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Modal } from "semantic-ui-react";
+import { Container } from "semantic-ui-react";
 import { Route, Switch } from "react-router-dom";
 
 import NavBar from "../../features/nav/NavBar/NavBar";
