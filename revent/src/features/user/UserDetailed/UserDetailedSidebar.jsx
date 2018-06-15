@@ -1,10 +1,11 @@
 import React from 'react';
 import { Button, Segment } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
 
 const UserDetailedSidebar = () => {
   return (
     <Segment>
-      <Button color='teal' fluid basic content='Edit Profile'/>
+      <Button as={NavLink} to='/settings' color='teal' fluid basic content='Edit Profile'/>
     </Segment>
   )
 }

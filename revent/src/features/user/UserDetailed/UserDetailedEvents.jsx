@@ -1,6 +1,7 @@
 import React from 'react';
 import { Segment, Header, Menu, Card, Image } from 'semantic-ui-react';
 
+// Not a part of the challenge so if it displays on the userdetailedpage then we gucci :) 
 const UserDetailedEvents = () => {
   return (
     <Segment attached>
