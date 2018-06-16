@@ -32,7 +32,7 @@ let render = () => {
                         transitionOut='fadeOut'
                         progressBar
                     />
-                    < App / >
+                    < App />
                 </ScrollToTop> 
             </BrowserRouter>
         </Provider>,

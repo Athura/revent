@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 
 import NavBar from "../../features/nav/NavBar/NavBar";
 
+
 import EventDashboard from "../../features/event/EventDashboard/EventDashboard";
 import EventDetailedPage from "../../features/event/EventDetailed/EventDetailedPage";
 import EventForm from "../../features/event/EventForm/EventForm";
