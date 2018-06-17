@@ -25,7 +25,7 @@ const UserDetailedEvents = () => {
         </Card>
 
         <Card>
-          <Image src={'/assets/categoryImages/drinks.jpg'} />
+          <Image src={'/assets/categoryImages/film.jpg'} />
           <Card.Content>
             <Card.Header textAlign="center">Event Title</Card.Header>
             <Card.Meta textAlign="center">
