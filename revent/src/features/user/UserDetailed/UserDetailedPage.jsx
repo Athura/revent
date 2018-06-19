@@ -9,6 +9,7 @@ import UserDetailedInfo from './UserDetailedInfo';
 import UserDetailedPhotos from './UserDetailedPhotos';
 import UserDetailedSidebar from './UserDetailedSidebar';
 import { userDetailedQuery } from '../userQueries';
+import LoadingComponent from '../../../app/layout/LoadingComponent';
 
 const mapStateToProps = (state, ownProps) => {
     let userUid = null;
@@ -24,13 +25,20 @@ const mapStateToProps = (state, ownProps) => {
         profile,
         userUid,
         auth: state.firebase.auth,
-        photos: state.firestore.ordered.photos
+        photos: state.firestore.ordered.photos,
+        requesting: state.firestore.status.requesting
     }
 }
 
  class UserDetailedPage extends Component {
      render() {
-         const { profile, photos } = this.props;
+         const { profile, photos, auth, match, requesting } = this.props;
+         const isCurrentUser = auth.uid === match.params.id;
+         const loading = Object.values(requesting).some(a => a === true);
+
+         if(loading) {
+             return <LoadingComponent inverted={true} />
+         }
         return (
             <Grid>
                 <Grid.Column width={16}>
@@ -40,11 +48,12 @@ const mapStateToProps = (state, ownProps) => {
                     <UserDetailedInfo profile={profile} />
                 </Grid.Column>
                 <Grid.Column width={4}>
-                    <UserDetailedSidebar />
+                    <UserDetailedSidebar isCurrentUser={isCurrentUser} />
                 </Grid.Column>
 
                 <Grid.Column width={12}>
-                    <UserDetailedPhotos photos={photos} />
+                {photos && photos.length > 0 &&
+                <UserDetailedPhotos photos={photos} /> }
                 </Grid.Column>
 
                 <Grid.Column width={12}>

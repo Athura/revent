@@ -1,5 +1,6 @@
 import React from 'react';
 import { Segment, Header, Image } from 'semantic-ui-react';
+import LazyLoad from 'react-lazyload';
 
 // We don't need to filter the photos, similar to the Photos page because we're not worried about displaying a main photo twice
 // We will use a map towards photos here to display all the images stored in firebase 
@@ -8,14 +9,15 @@ const UserDetailedPhotos = ({photos}) => {
   return (
     <Segment attached>
       <Header icon="image" content="Photos" />
-      {photos ? 
       <Image.Group size="small">
         {photos && 
           photos.map((photo) => (
-            <Image key={photo.id} src={photo.url} />
+            <LazyLoad key={photo.id} height={150} placeholder={<Image src='/assets/user.png' />} >
+              <Image src={photo.url} />
+            </LazyLoad>
           ))
         }
-      </Image.Group> : <p>No photos to see here</p> }
+      </Image.Group>
   </Segment>   
   );
 };

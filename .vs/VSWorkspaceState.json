@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\revent",
+    "\\revent\\src",
+    "\\revent\\src\\features",
+    "\\revent\\src\\features\\async",
+    "\\revent\\src\\features\\auth",
+    "\\revent\\src\\features\\home",
+    "\\revent\\src\\features\\testarea"
+  ],
+  "SelectedNode": "\\revent\\src\\features\\async\\asyncActions.jsx",
+  "PreviewInSolutionExplorer": false
+}
