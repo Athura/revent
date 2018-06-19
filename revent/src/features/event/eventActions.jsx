@@ -1,17 +1,13 @@
 import { toastr } from "react-redux-toastr";
-import {
-  DELETE_EVENT,
-  UPDATE_EVENT,
-  FETCH_EVENTS
-} from "./eventConstants";
+import { DELETE_EVENT, FETCH_EVENTS } from "./eventConstants";
 import {
   asyncActionError,
   asyncActionFinish,
   asyncActionStart
 } from "../async/asyncActions";
 import { fetchSampleData } from "../../app/data/mockApi";
-import { createNewEvent } from '../../app/common/util/helpers';
-import moment from 'moment';
+import { createNewEvent } from "../../app/common/util/helpers";
+import moment from "moment";
 
 export const fetchEvents = events => {
   return {
@@ -21,7 +17,7 @@ export const fetchEvents = events => {
 };
 
 export const createEvent = event => {
-  return async (dispatch, getState, {getFirestore}) => {
+  return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     const user = firestore.auth().currentUser;
     // This will give us access to the user's main photo url
@@ -37,7 +33,7 @@ export const createEvent = event => {
         userUid: user.uid,
         eventDate: event.date,
         host: true
-      })
+      });
       toastr.success("Success", "Event has been created!");
     } catch (error) {
       toastr.error("Oops", "Something went wrong!");
@@ -46,7 +42,7 @@ export const createEvent = event => {
 };
 
 export const updateEvent = event => {
-  return async (dispatch, getState, {getFirestore}) => {
+  return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     // this fixes the date getting reset to a random date bug
     if (event.date !== getState().firestore.ordered.events[0].date) {
@@ -61,17 +57,26 @@ export const updateEvent = event => {
   };
 };
 
-export const cancelToggle = (cancelled, eventId) => 
-  async (dispatch, getState, {getFirestore}) => {
-    const firestore = getFirestore();
-    try {
-      await firestore.update(`events/${eventId}`, {
+export const cancelToggle = (cancelled, eventId) => async (
+  dispatch,
+  getState,
+  { getFirestore }
+) => {
+  const firestore = getFirestore();
+  const message = cancelled
+    ? "Are you sure you want to cancel the event?"
+    : "This will reactivate the event - are you sure?";
+  try {
+    toastr.confirm(message, {
+      onOk: () => 
+        firestore.update(`events/${eventId}`, {
         cancelled: cancelled
       })
-    } catch (error) {
-      console.log(error);
-    }
+    });
+  } catch (error) {
+    console.log(error);
   }
+};
 
 export const deleteEvent = eventId => {
   return {

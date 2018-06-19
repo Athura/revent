@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withFirestore } from "react-redux-firebase";
 import { Grid } from "semantic-ui-react";
-import { toastr } from 'react-redux-toastr';
 import EventDetailedHeader from "./EventDetailedHeader";
 import EventDetailedSidebar from "./EventDetailedSidebar";
 import EventDetailedChat from "./EventDetailedChat";
 import EventDetailedInfo from "./EventDetailedInfo";
-import { objectToArray } from '../../../app/common/util/helpers';
+import { objectToArray } from "../../../app/common/util/helpers";
+import { goingToEvent, cancelGoingToEvent } from "../../user/userActions";
 
-const mapState = (state) => {
+const mapState = state => {
   let event = {};
 
   if (state.firestore.ordered.events && state.firestore.ordered.events[0]) {
@@ -17,29 +17,44 @@ const mapState = (state) => {
   }
 
   return {
-    event
+    event,
+    auth: state.firebase.auth
   };
 };
 
-class EventDetailedPage extends Component {
+const actions = {
+  goingToEvent,
+  cancelGoingToEvent
+};
 
+class EventDetailedPage extends Component {
   async componentDidMount() {
-    const {firestore, match, history} = this.props;
-    let event = await firestore.get(`events/${match.params.id}`);
-    
-    if(!event.exists) {
-      history.push('/events');
-      toastr.error('Sorry', 'Event not found');
-    }
+    const { firestore, match } = this.props;
+    await firestore.setListener(`events/${match.params.id}`);
   }
 
+  async componentWillUnmount() {
+    const { firestore, match } = this.props;
+    await firestore.unsetListener(`events/${match.params.id}`);
+  }
+
+  // some tests whether one element in the arrray meets the function; so true = peopel are going and false = noone is going
   render() {
-    const { event } = this.props;
-    const attendees = event && event.attendees && objectToArray(event.attendees);
+    const { event, auth, goingToEvent, cancelGoingToEvent } = this.props;
+    const attendees =
+      event && event.attendees && objectToArray(event.attendees);
+    const isHost = event.hostUid === auth.uid;
+    const isGoing = attendees && attendees.some(a => a.id === auth.uid);
     return (
       <Grid>
         <Grid.Column width={10}>
-          <EventDetailedHeader event={event} />
+          <EventDetailedHeader
+            event={event}
+            isHost={isHost}
+            isGoing={isGoing}
+            goingToEvent={goingToEvent}
+            cancelGoingToEvent={cancelGoingToEvent}
+          />
           <EventDetailedInfo event={event} />
           <EventDetailedChat />
         </Grid.Column>
@@ -51,4 +66,9 @@ class EventDetailedPage extends Component {
   }
 }
 
-export default withFirestore(connect(mapState)(EventDetailedPage));
+export default withFirestore(
+  connect(
+    mapState,
+    actions
+  )(EventDetailedPage)
+);
