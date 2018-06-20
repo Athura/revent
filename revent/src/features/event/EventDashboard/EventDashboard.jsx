@@ -43,7 +43,7 @@ class EventDashboard extends Component {
     }
   }
 
-  getNextEvents = async () => {
+  _getNextEvents = async () => {
     const { events } = this.props;
     let lastEvent = events && events[events.length - 1];
     console.log(lastEvent);
@@ -68,7 +68,7 @@ class EventDashboard extends Component {
             loading={loading}
             moreEvents={moreEvents}
             events={loadedEvents}
-            getNextEvents={this.getNextEvents}
+            getNextEvents={this._getNextEvents}
           />
         </Grid.Column>
         <Grid.Column width={6}>

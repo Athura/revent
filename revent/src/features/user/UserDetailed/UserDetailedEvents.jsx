@@ -1,38 +1,42 @@
 import React from 'react';
-import { Segment, Header, Menu, Card, Image } from 'semantic-ui-react';
+import { Segment, Header, Menu, Card, Image, Tab } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import format from 'date-fns/format';
 
-// Not a part of the challenge so if it displays on the userdetailedpage then we gucci :) 
-const UserDetailedEvents = () => {
+const panes = [
+  {menuItem: 'All Events', pane: {key: 'allEvents'}},
+  {menuItem: 'Past Events', pane: {key: 'pastEvents'}},
+  {menuItem: 'Future Events', pane: {key: 'futureEvents'}},
+  {menuItem: 'Hosting', pane: {key: 'hosted'}},
+]
+
+// Not a part of the challenge so if it displays on the userdetailedpage then we gucci :)
+const UserDetailedEvents = ({ events, eventsLoading, changeTab }) => {
   return (
-    <Segment attached>
+    <Segment attached loading={eventsLoading}>
       <Header icon="calendar" content="Events" />
-      <Menu secondary pointing>
-        <Menu.Item name="All Events" active />
-        <Menu.Item name="Past Events" />
-        <Menu.Item name="Future Events" />
-        <Menu.Item name="Events Hosted" />
-      </Menu>
+      <Tab onTabChange={(event, data) => changeTab(event,data)} panes={panes} menu={{secondary: true, pointing: true}} />
+      <br />
 
       <Card.Group itemsPerRow={5}>
-        <Card>
-          <Image src={'/assets/categoryImages/drinks.jpg'} />
-          <Card.Content>
-            <Card.Header textAlign="center">Event Title</Card.Header>
-            <Card.Meta textAlign="center">
-              28th March 2018 at 10:00 PM
-            </Card.Meta>
-          </Card.Content>
-        </Card>
+        {events &&
+          events.map(event => (
+            <Card as={Link} to={`/event/${event.id}`} key={event.id}>
+              <Image src={`/assets/categoryImages/${event.category}.jpg`} />
+              <Card.Content>
+                <Card.Header textAlign="center">{event.title}</Card.Header>
+                <Card.Meta textAlign="center">
+                  <div>
+                    {format(event.date && event.date.toDate(), 'DD MMM YYYY')}
+                  </div>
+                  <div>
+                    {format(event.date && event.date.toDate(), 'h:mm A')}
+                  </div>
 
-        <Card>
-          <Image src={'/assets/categoryImages/film.jpg'} />
-          <Card.Content>
-            <Card.Header textAlign="center">Event Title</Card.Header>
-            <Card.Meta textAlign="center">
-              28th March 2018 at 10:00 PM
-            </Card.Meta>
-          </Card.Content>
-        </Card>
+                </Card.Meta>
+              </Card.Content>
+            </Card>
+          ))}
       </Card.Group>
     </Segment>
   );
