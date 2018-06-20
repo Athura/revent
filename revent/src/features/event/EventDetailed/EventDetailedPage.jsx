@@ -1,13 +1,15 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withFirestore } from "react-redux-firebase";
-import { Grid } from "semantic-ui-react";
-import EventDetailedHeader from "./EventDetailedHeader";
-import EventDetailedSidebar from "./EventDetailedSidebar";
-import EventDetailedChat from "./EventDetailedChat";
-import EventDetailedInfo from "./EventDetailedInfo";
-import { objectToArray } from "../../../app/common/util/helpers";
-import { goingToEvent, cancelGoingToEvent } from "../../user/userActions";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withFirestore, firebaseConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
+import { Grid } from 'semantic-ui-react';
+import EventDetailedHeader from './EventDetailedHeader';
+import EventDetailedSidebar from './EventDetailedSidebar';
+import EventDetailedChat from './EventDetailedChat';
+import EventDetailedInfo from './EventDetailedInfo';
+import { objectToArray } from '../../../app/common/util/helpers';
+import { goingToEvent, cancelGoingToEvent } from '../../user/userActions';
+import { addEventComment } from '../eventActions';
 
 const mapState = state => {
   let event = {};
@@ -24,7 +26,8 @@ const mapState = state => {
 
 const actions = {
   goingToEvent,
-  cancelGoingToEvent
+  cancelGoingToEvent,
+  addEventComment
 };
 
 class EventDetailedPage extends Component {
@@ -40,7 +43,7 @@ class EventDetailedPage extends Component {
 
   // some tests whether one element in the arrray meets the function; so true = peopel are going and false = noone is going
   render() {
-    const { event, auth, goingToEvent, cancelGoingToEvent } = this.props;
+    const { event, auth, goingToEvent, cancelGoingToEvent, addEventComment } = this.props;
     const attendees =
       event && event.attendees && objectToArray(event.attendees);
     const isHost = event.hostUid === auth.uid;
@@ -56,7 +59,7 @@ class EventDetailedPage extends Component {
             cancelGoingToEvent={cancelGoingToEvent}
           />
           <EventDetailedInfo event={event} />
-          <EventDetailedChat />
+          <EventDetailedChat addEventComment={addEventComment} eventId={event.id} />
         </Grid.Column>
         <Grid.Column width={6}>
           <EventDetailedSidebar attendees={attendees} />
@@ -66,9 +69,10 @@ class EventDetailedPage extends Component {
   }
 }
 
-export default withFirestore(
+export default compose(
+  withFirestore,
   connect(
     mapState,
     actions
-  )(EventDetailedPage)
-);
+  ),
+  firebaseConnect((props) => ([`event_chat/${props.match.params.id}`])))(EventDetailedPage);

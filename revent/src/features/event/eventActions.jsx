@@ -119,3 +119,14 @@ export const getEventForDashboard = lastEvent => async (dispatch, getState) => {
     dispatch(asyncActionError());
   }
 };
+
+export const addEventComment = (eventId, comment) => 
+  async (dispatch, getState, {getFirebase}) => {
+    const firebase = getFirebase();
+    try {
+      await firebase.push(`event_chat/${eventId}`, comment)
+    } catch (error) {
+      console.log(error);
+      toastr.error('Oops', 'Problem adding comment');
+    }
+  }

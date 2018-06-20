@@ -13,7 +13,7 @@ class EventList extends Component {
               pageStart={0}
               loadMore={getNextEvents}
               hasMore={!loading && moreEvents}
-              initalLoad={false}
+              initalload="false"
             >
               {events &&
                 events.map(event => (
