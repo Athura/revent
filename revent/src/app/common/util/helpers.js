@@ -30,3 +30,21 @@ export const createNewEvent = (user, photoURL, event) => {
         }
     }
 }
+
+// May need to rewatch: go to section 21 lecture 205 for re explanation
+// Takes in a dataset which is going to be our existing flat array and then we create a variable 
+// called hash table that starts off with no object and then each item that we have in our dataset 
+// we add an item (forEach) into our hash tale with an id and then we spread the available data 
+// accross our child nodes. So each element in our array whether its a parent or child will have an empty array called child nodes.
+// Then we have a dataTree variable with an empty array to loop over our datasets again and well say if a parent id as in ParentId is not 
+// equal to 0 then well say if the inputs parentid matches a parent id then we'll push that child node into the parent
+export const createDataTree = dataset => {
+    let hashTable = Object.create(null);
+    dataset.forEach(a => hashTable[a.id] = {...a, childNodes: []});
+    let dataTree = [];
+    dataset.forEach(a => {
+        if (a.parentId) hashTable[a.parentId].childNodes.push(hashTable[a.id]);
+        else dataTree.push(hashTable[a.id])
+    });
+    return dataTree
+};
