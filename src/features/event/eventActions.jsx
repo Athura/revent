@@ -1,11 +1,10 @@
 import { toastr } from 'react-redux-toastr';
-import { DELETE_EVENT, FETCH_EVENTS } from './eventConstants';
+import { FETCH_EVENTS } from './eventConstants';
 import {
   asyncActionError,
   asyncActionFinish,
   asyncActionStart
 } from '../async/asyncActions';
-import { fetchSampleData } from '../../app/data/mockApi';
 import { createNewEvent } from '../../app/common/util/helpers';
 import moment from 'moment';
 import firebase from '../../app/config/firebase';
@@ -73,7 +72,6 @@ export const cancelToggle = (cancelled, eventId) => async (
 };
 
 export const getEventForDashboard = lastEvent => async (dispatch, getState) => {
-  let today = new Date(Date.now());
   const firestore = firebase.firestore();
   const eventsRef = firestore.collection('events');
 
