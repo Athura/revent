@@ -23,3 +23,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+functions/node_modules/**
+revent/functions/node_modules/@firebase/app/coverage/browser/HeadlessChrome 64.0.3282 (Linux 0.0.0)/sorter.js
