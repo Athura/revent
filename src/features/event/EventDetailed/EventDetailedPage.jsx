@@ -23,6 +23,7 @@ const mapState = (state, ownProps) => {
   // second check taking our data in event chat and selecting the event from the parameters in the URL to match what should be displayed and so on
   return {
     event,
+    loading: state.async.loading,
     auth: state.firebase.auth,
     eventChat:
       !isEmpty(state.firebase.data.event_chat) &&
@@ -50,6 +51,7 @@ class EventDetailedPage extends Component {
   // some tests whether one element in the arrray meets the function; so true = peopel are going and false = noone is going
   render() {
     const {
+      loading,
       event,
       auth,
       goingToEvent,
@@ -66,6 +68,7 @@ class EventDetailedPage extends Component {
       <Grid>
         <Grid.Column width={10}>
           <EventDetailedHeader
+            loading={loading}
             event={event}
             isHost={isHost}
             isGoing={isGoing}
