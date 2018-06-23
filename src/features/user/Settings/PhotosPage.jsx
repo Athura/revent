@@ -74,7 +74,7 @@ class PhotosPage extends Component {
 
   _handleSetMainPhoto = (photo) => async () => {
     try {
-        this.props.setMainPhoto(photo);
+        await this.props.setMainPhoto(photo);
         toastr.success('Success!', 'You now have a new main photo!');
     } catch (error) {
       toastr.error('Oops', error.message);
