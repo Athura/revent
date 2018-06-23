@@ -3,7 +3,7 @@ import { Container } from "semantic-ui-react";
 import { Route, Switch } from "react-router-dom";
 
 import NavBar from "../../features/nav/NavBar/NavBar";
-
+import NotFound from '../../app/layout/NotFound';
 
 import EventDashboard from "../../features/event/EventDashboard/EventDashboard";
 import EventDetailedPage from "../../features/event/EventDetailed/EventDetailedPage";
@@ -42,6 +42,8 @@ class App extends Component {
                   <Route path="/profile/:id" component={UserIsAuthenticated(UserDetailedPage)} />
                   <Route path="/settings" component={UserIsAuthenticated(SettingsDashboard)} />
                   <Route path="/createEvent" component={UserIsAuthenticated(EventForm)} />
+                  <Route path="/error" component={NotFound} />
+                  <Route component={NotFound} />
                 </Switch>
               </Container>
             </div>

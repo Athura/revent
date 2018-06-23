@@ -19,7 +19,7 @@ class UnauthModal extends Component {
     }
 
   render() {
-    const { openModal, closeModal } = this.props;
+    const { openModal } = this.props;
     return (
       <Modal size="mini" open={true} onClose={this._handleCloseModal}>
         <Modal.Header>You need to be signed in to do that!</Modal.Header>
