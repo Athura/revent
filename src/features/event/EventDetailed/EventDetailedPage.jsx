@@ -89,7 +89,7 @@ class EventDetailedPage extends Component {
     const isHost = event.hostUid === auth.uid;
     const isGoing = attendees && attendees.some(a => a.id === auth.uid);
     const chatTree = !isEmpty(eventChat) && createDataTree(eventChat);
-    const authenticated = auth.isLoading && !auth.isEmpty;
+    const authenticated = auth.isLoaded && !auth.isEmpty;
     const loadingEvent = requesting[`events/${match.params.id}`];
 
     if(loadingEvent || this.state.initialLoading) {

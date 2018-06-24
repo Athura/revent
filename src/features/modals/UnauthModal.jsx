@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Modal, Button, Divider } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom';
-
 import { closeModal, openModal } from "./modalActions";
 
 const actions = { closeModal, openModal };

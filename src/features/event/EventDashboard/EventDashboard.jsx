@@ -35,12 +35,16 @@ class EventDashboard extends Component {
 
   async componentDidMount() {
     let next = await this.props.getEventForDashboard();
-
+ 
     if (next && next.docs && next.docs.length > 1) {
       this.setState({
         moreEvents: true,
         loadingInitial: false
-      });
+      })
+    } else {
+      this.setState({
+        loadingInitial: false
+      })
     }
   }
 

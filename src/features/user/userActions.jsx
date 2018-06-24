@@ -127,7 +127,7 @@ export const setMainPhoto = photo => async (dispatch, getState) => {
         let event = await eventDocRef.get();
         if(event.data().hostUid === user.uid) {
           batch.update(eventDocRef, {
-            hostPhotoUrl: photo.url,
+            hostPhotoURL: photo.url,
             [`attendees.${user.uid}.photoURL`]: photo.url
           })
         } else {
@@ -142,7 +142,7 @@ export const setMainPhoto = photo => async (dispatch, getState) => {
   } catch (error) {
     console.log(error);
     dispatch(asyncActionError());
-    throw new Error("Problem");
+    throw new Error("Problem setting main photo");
   }
 };
 
