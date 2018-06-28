@@ -43,6 +43,7 @@
     "deploy": "npm run build && firebase deploy"
   },
   "devDependencies": {
+    "eslint-plugin-promise": "^3.8.0",
     "redux-devtools-extension": "^2.13.2",
     "source-map-explorer": "^1.5.0"
   }

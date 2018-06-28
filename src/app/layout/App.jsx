@@ -11,6 +11,11 @@ const AsyncHomePage = Loadable({
   loading: LoadingComponent
 })
 
+const AsyncPrivacyPage = Loadable({
+  loader: () => import("../../features/privacypolicy/PrivacyPolicy"),
+  loading: LoadingComponent
+})
+
 const AsyncEventForm = Loadable({
   loader: () => import("../../features/event/EventForm/EventForm"),
   loading: LoadingComponent
@@ -18,6 +23,11 @@ const AsyncEventForm = Loadable({
 
 const AsyncNavBar = Loadable({
   loader: () => import("../../features/nav/NavBar/NavBar"),
+  loading: LoadingComponent
+})
+
+const AsyncFooter = Loadable({
+  loader: () => import("../../features/footer/footer"),
   loading: LoadingComponent
 })
 
@@ -75,10 +85,12 @@ class App extends Component {
                   <Route path="/profile/:id" component={UserIsAuthenticated(AsyncUserDetailedPage)} />
                   <Route path="/settings" component={UserIsAuthenticated(AsyncSettingsDashboard)} />
                   <Route path="/createEvent" component={UserIsAuthenticated(AsyncEventForm)} />
+                  <Route path="/privacy" component={UserIsAuthenticated(AsyncPrivacyPage)} />
                   <Route path="/error" component={AsyncNotFound} />
                   <Route component={AsyncNotFound} />
                 </Switch>
               </Container>
+              <AsyncFooter />
             </div>
           )}
         />
