@@ -2,6 +2,7 @@ import React from "react";
 import { Segment, Image, Button, Item, Header, Label } from "semantic-ui-react";
 import format from "date-fns/format";
 import { Link } from "react-router-dom";
+import MailTo from 'react-mailto';
 
 const eventImageStyle = {
   filter: "brightness(30%)"
@@ -67,13 +68,16 @@ const EventDetailedHeader = ({ authenticated, openModal, loading, event, isHost,
         )}
 
         {isHost && (
-          <Button
+          <div>
+            <Button
             as={Link}
             to={`/manage/${event.id}`}
             color="orange"
           >
             Manage Event
           </Button>
+          <MailTo email="example@gmail.com" obfuscate={true}> </MailTo>
+          </div>
         )}       
       </Segment>
     </Segment.Group>
