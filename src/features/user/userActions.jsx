@@ -238,7 +238,7 @@ export const getUserEvents = (userUid, activeTab) => async (
     default:
       query = eventsRef
         .where("userUid", "==", userUid)
-        .orderBy("eventDate", "desc");
+        .orderBy("eventDate", "asc");
       break;
   }
   try {
