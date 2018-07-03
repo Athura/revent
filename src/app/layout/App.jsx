@@ -85,7 +85,7 @@ class App extends Component {
                   <Route path="/profile/:id" component={UserIsAuthenticated(AsyncUserDetailedPage)} />
                   <Route path="/settings" component={UserIsAuthenticated(AsyncSettingsDashboard)} />
                   <Route path="/createEvent" component={UserIsAuthenticated(AsyncEventForm)} />
-                  <Route path="/privacy" component={UserIsAuthenticated(AsyncPrivacyPage)} />
+                  <Route path="/privacy" component={AsyncPrivacyPage} />
                   <Route path="/error" component={AsyncNotFound} />
                   <Route component={AsyncNotFound} />
                 </Switch>
