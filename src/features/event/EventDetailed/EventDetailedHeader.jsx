@@ -76,7 +76,9 @@ const EventDetailedHeader = ({ authenticated, openModal, loading, event, isHost,
               Manage Event
             </Button>
             <Button 
-              href="mailto:example@gmail.com"
+              href={`mailto:example@gmail.com?subject=Your friend is inviting you to their event: ${event.title}!
+                &body=Your friend is interesting!
+              `}
               color="blue"
             >Invite your friends!</Button>
           </div>

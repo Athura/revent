@@ -10,7 +10,7 @@ import EventActivity from '../EventActivity/EventActivity';
 const query = [
   {
     collection: 'activity',
-    orderBy: ['timestamp', 'desc'],
+    orderBy: ['timestamp', 'asc'],
     limit: 5
   }
 ]
