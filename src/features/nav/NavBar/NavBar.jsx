@@ -47,7 +47,7 @@ class NavBar extends Component {
             <Menu.Item as={NavLink} to="/people" name="People" />
           )}
           {authenticated &&
-          <Menu.Item position="right">
+          <Menu.Item>
             <Button
               as={Link}
               to="/createEvent"
